@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EFProjetFilmStoreContainer" CdmEntityContainer="EFProjetFilmContainer">
+    <EntitySetMapping Name="film">
+      <EntityTypeMapping TypeName="IsTypeOf(EFProjetFilm.Film)">
+        <MappingFragment StoreEntitySet="film">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Titre" ColumnName="Titre" />
+          <ScalarProperty Name="Synopsis" ColumnName="Synopsis" />
+          <ScalarProperty Name="Annee" ColumnName="Annee" />
+          <ScalarProperty Name="Affiche" ColumnName="Affiche" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pays">
+      <EntityTypeMapping TypeName="IsTypeOf(EFProjetFilm.Pays)">
+        <MappingFragment StoreEntitySet="pays">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="genre">
+      <EntityTypeMapping TypeName="IsTypeOf(EFProjetFilm.Genre)">
+        <MappingFragment StoreEntitySet="genre">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="drapeau">
+      <EntityTypeMapping TypeName="IsTypeOf(EFProjetFilm.Drapeau)">
+        <MappingFragment StoreEntitySet="drapeau">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CheminImage" ColumnName="CheminImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FilmGenre" TypeName="EFProjetFilm.FilmGenre" StoreEntitySet="FilmGenre">
+      <EndProperty Name="Film">
+        <ScalarProperty Name="Id" ColumnName="Film_Id" />
+      </EndProperty>
+      <EndProperty Name="Genre">
+        <ScalarProperty Name="Id" ColumnName="Genre_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FilmPays" TypeName="EFProjetFilm.FilmPays" StoreEntitySet="FilmPays">
+      <EndProperty Name="Film">
+        <ScalarProperty Name="Id" ColumnName="Film_Id" />
+      </EndProperty>
+      <EndProperty Name="Pays">
+        <ScalarProperty Name="Id" ColumnName="Pays_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PaysDrapeau" TypeName="EFProjetFilm.PaysDrapeau" StoreEntitySet="drapeau">
+      <EndProperty Name="Pays">
+        <ScalarProperty Name="Id" ColumnName="Pays_Id" />
+      </EndProperty>
+      <EndProperty Name="Drapeau">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Pays_Id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

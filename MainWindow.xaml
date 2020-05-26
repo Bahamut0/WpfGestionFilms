@@ -1,0 +1,151 @@
+﻿<Window x:Class="WpfProjetFilm.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfProjetFilm"
+        xmlns:vm="clr-namespace:WpfProjetFilm.ViewModel"
+        mc:Ignorable="d"
+        Title="Gestion de vos Films" HorizontalAlignment="Center" Height="764.709" Width="1434.267" Foreground="#FF3D2A68" FontWeight="Bold">
+    <Window.Resources>
+        <vm:VMProjetFilm x:Key="KeyFilm"></vm:VMProjetFilm>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource ResourceKey=KeyFilm}}" Margin="0,0,-286,-30">
+        <Grid.Background>
+            <ImageBrush ImageSource="D:\Cours informatique\Doranco\C#\workspace\Semaine5_\WpfProjetFilm\Image\greyLight.jpg"/>
+        </Grid.Background>
+        <Label Content="Titre :" HorizontalAlignment="Left" Margin="29,151,0,0" VerticalAlignment="Top" Width="126" Height="35" FontSize="16" FontWeight="Bold" Foreground="#FF3D2A68"/>
+        <Label Content="Synopsis :" HorizontalAlignment="Left" Margin="29,190,0,0" VerticalAlignment="Top" Width="126" Height="33" FontSize="16" FontWeight="Bold" Foreground="#FF3D2A68"/>
+        <Label Content="Année :" HorizontalAlignment="Left" Margin="29,228,0,0" VerticalAlignment="Top" Width="126" Height="33" FontSize="16" FontWeight="Bold" Foreground="#FF3D2A68"/>
+        <Label Content="Pays :" HorizontalAlignment="Left" Margin="35,266,0,0" VerticalAlignment="Top" Width="126" Height="33" FontSize="16" FontWeight="Bold" Foreground="#FF3D2A68"/>
+        <TextBox x:Name="TbxTitre" HorizontalAlignment="Left" Height="32" Margin="174,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"
+                 Text="{Binding ElementName=LbxFilm, Path=SelectedItem.Titre ,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+        <TextBox x:Name="TbxSynopsis" HorizontalAlignment="Left" Height="32" Margin="174,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"
+                 Text="{Binding ElementName=LbxFilm, Path=SelectedItem.Synopsis,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+        <TextBox x:Name="TbxAnnee" HorizontalAlignment="Left" Height="32" Margin="174,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"
+                 Text="{Binding ElementName=LbxFilm, Path=SelectedItem.Annee,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+
+        <Image Panel.ZIndex="2"  x:Name="ImgFilm" Stretch="Fill" Source="{Binding ElementName=LbxFilm, Path=SelectedItem.Affiche, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="148" Margin="520,151,0,0" VerticalAlignment="Top" Width="148" MouseDown="ImgFilm_MouseDown" />
+        <Image Panel.ZIndex="1" x:Name="ImgFilmAvatar" Stretch="Fill"  Source="D:\Cours informatique\Doranco\C#\workspace\Semaine5_\WpfProjetFilm\Image\avatar.jpg" HorizontalAlignment="Left" Height="148" Margin="520,151,0,0" VerticalAlignment="Top" Width="148" MouseDown="ImgFilmAvatar_MouseDown"  />
+        <ListBox ItemsSource="{Binding Path=Films, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="LbxFilm" HorizontalAlignment="Left" Height="349" Margin="520,388,0,0" VerticalAlignment="Top" Width="860" MouseDown="LbxFilm_MouseDown">
+
+            <ListBox.ItemTemplate>
+
+                <DataTemplate>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Margin="10"  Width="130" Text="{Binding Titre}" VerticalAlignment="Center" TextWrapping="Wrap" ></TextBlock>
+                       
+                        <TextBlock Width="240" Text="{Binding Synopsis}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                       
+                        <TextBlock Margin="10" Width="40" Text="{Binding Annee}" VerticalAlignment="Center"></TextBlock>
+
+                        <Image Width="70 " Source="{Binding Affiche}"></Image>
+                        <ListView Margin="10" Name="lvFilmGenre" ItemsSource="{Binding Genre}" DisplayMemberPath="Libelle"
+                  SelectedValuePath="Libelle" >
+                            <ListView.View >
+                                <GridView >
+                                    <GridViewColumn x:Name="gvcGenreLibelle" Header="Genre" Width="120" DisplayMemberBinding="{Binding Libelle}" />
+
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <ListView Margin="10" Name="lvFilmPays" ItemsSource="{Binding Pays}" DisplayMemberPath="Libelle"
+                  SelectedValuePath="Libelle" >
+                            <ListView.View >
+                                <GridView >
+                                    <GridViewColumn x:Name="gvcPaysLibelle" Header="Pays" Width="120" DisplayMemberBinding="{Binding Libelle}" />
+
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <!--
+                        <ComboBox Width="120" VerticalAlignment="Center" Height="40" ItemsSource="{Binding Genre}"
+                                  DisplayMemberPath="Libelle"></ComboBox>
+                        
+                        <ComboBox Width="120" ItemsSource="{Binding Pays}"
+                                  DisplayMemberPath="Libelle" VerticalAlignment="Center" Height="40"></ComboBox>
+                        -->
+                    </StackPanel>
+
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="BtnAjouter" Content="Ajouter" HorizontalAlignment="Left" Margin="741,228,0,0" VerticalAlignment="Top" Width="107" Height="36" Background="#FF567CD3" Click="BtnAjouter_Click"  />
+        <ComboBox ItemsSource="{Binding Path=PaysListe, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   
+                  SelectedIndex="33" 
+                  DisplayMemberPath="Libelle"
+                  SelectedValuePath="Libelle"
+                  x:Name="CbxPays"
+                  HorizontalAlignment="Left" Margin="35,322,0,0" VerticalAlignment="Top" Width="145" Height="35"/>
+        <ListBox HorizontalAlignment="Left" Height="349" Margin="222,388,0,0" VerticalAlignment="Top" Width="145"
+                 IsSynchronizedWithCurrentItem="True"
+                 x:Name="lbxGenre" 
+                 ItemsSource="{Binding Genres}"
+                 SelectionMode="Multiple">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox  
+                       
+                        x:Name="checkboxGenre"
+                        Content="{Binding Libelle}" 
+                                       
+                        Checked="CheckBox_Click"
+                        />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+        <TextBox x:Name="tbxRechercher" HorizontalAlignment="Left" Height="41" Margin="524,314,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="629" TextChanged="tbxRechercher_TextChanged"   />
+
+        <Label Content="Genre :" HorizontalAlignment="Left" Margin="222,266,0,0" VerticalAlignment="Top" Width="126" Height="33" FontSize="16" FontWeight="Bold" Foreground="#FF3D2A68"/>
+        <ComboBox ItemsSource="{Binding Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectedIndex="1"
+            DisplayMemberPath="Libelle"
+            SelectedValuePath="Libelle"
+            x:Name="CbxGenre"
+            HorizontalAlignment="Left" Margin="222,322,0,0" VerticalAlignment="Top" Width="145" Height="35"/>
+        <Button x:Name="BtnModifier" Content="Modifier" HorizontalAlignment="Left" Margin="889,228,0,0" VerticalAlignment="Top" Width="107" Height="36" Background="#FFF7C16B" Click="BtnModifier_Click"/>
+        <Button x:Name="BtnSupprimer" Content="Supprimer" HorizontalAlignment="Left" Margin="1046,228,0,0" VerticalAlignment="Top" Width="107" Height="36" Background="#FFD75252" Click="BtnSupprimer_Click"  />
+        <Label Content="Rechercher :" HorizontalAlignment="Left" Margin="393,322,0,0" VerticalAlignment="Top" Width="126" Height="33" FontSize="16" FontWeight="Bold" Foreground="#FF3D2A68"/>
+        <Label Content="Affiche :" HorizontalAlignment="Left" Margin="365,190,0,0" VerticalAlignment="Top" Width="101" Height="33" FontSize="16" FontWeight="Bold" Foreground="#FF3D2A68"/>
+
+        <!-- Les imports de films, pays,  genre ...-->
+        <!-- BDD First à partir du diagramme -->
+        <Button x:Name="btnImporterFilm" Content="Importer Film" HorizontalAlignment="Left" Margin="393,388,0,0" VerticalAlignment="Top" Width="107" Height="36" Background="#FF7ACBC7" Click="btnImporterFilm_Click"   />
+        <Button  x:Name="btnImporterPays" Content="Importer Pays" HorizontalAlignment="Left" Margin="393,451,0,0" VerticalAlignment="Top" Width="107" Height="36" Background="#FF7ACBC7" Click="btnImporterPays_Click"   />
+        <Button  x:Name="btnImporterGenre" Content="Importer Genre" HorizontalAlignment="Left" Margin="393,514,0,0" VerticalAlignment="Top" Width="107" Height="36" Background="#FF7ACBC7" Click="btnImporterGenre_Click"   />
+        <Button  x:Name="btnImporterFilmPays" Content="Importer FilmPays" HorizontalAlignment="Left" Margin="393,640,0,0" VerticalAlignment="Top" Width="107" Height="36" Background="#FF7ACBC7" Click="btnImporterFilmPays_Click"   />
+        <Button  x:Name="BtnImporterFilmGenre" Content="Imorter FilmGenre" HorizontalAlignment="Left" Margin="393,701,0,0" VerticalAlignment="Top" Width="107" Height="36" Background="#FF7ACBC7" Click="BtnImporterFilmGenre_Click"   />
+        <Button  x:Name="BtnImporterDrapeau" Content="ImporterDrapeau" HorizontalAlignment="Left" Margin="393,578,0,0" VerticalAlignment="Top" Width="107" Height="36" Background="#FF7ACBC7" Click="BtnImporterDrapeau_Click"  />
+        <ListBox HorizontalAlignment="Left" Height="349" Margin="35,388,0,0" VerticalAlignment="Top" Width="145"
+            x:Name="lbxPays"
+            ItemsSource="{Binding PaysListe}"
+            SelectionMode="Multiple" 
+            IsSynchronizedWithCurrentItem="True" 
+            
+                 >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox  
+                        
+                        x:Name="checkboxPays"
+                        Content="{Binding Libelle}" 
+                        Checked="CheckBox_ClickPays"
+                      
+                        
+                        />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+        <Label HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontFamily="30" Content="GESTION DE FILMS" Margin="524,32,838,0" VerticalAlignment="Top" Width="352" Height="78" FontSize="40" FontWeight="Normal" Foreground="#FF3D2A68"/>
+        <ComboBox x:Name="cbxRechercher" HorizontalAlignment="Left" Margin="1207,314,0,0" VerticalAlignment="Top" Width="173" Height="41">
+            <ComboBoxItem IsSelected="True"  >Titre</ComboBoxItem>
+            <ComboBoxItem >Synopsis</ComboBoxItem>
+            <ComboBoxItem >Année</ComboBoxItem>
+
+        </ComboBox>
+    </Grid>
+</Window>

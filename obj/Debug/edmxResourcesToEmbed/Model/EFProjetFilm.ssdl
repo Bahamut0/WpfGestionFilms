@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EFProjetFilm.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="EFProjetFilmStoreContainer">
+    <EntitySet Name="film" EntityType="EFProjetFilm.Store.film" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="pays" EntityType="EFProjetFilm.Store.pays" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="genre" EntityType="EFProjetFilm.Store.genre" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="drapeau" EntityType="EFProjetFilm.Store.drapeau" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FilmGenre" EntityType="EFProjetFilm.Store.FilmGenre" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FilmPays" EntityType="EFProjetFilm.Store.FilmPays" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_FilmGenre_Film" Association="EFProjetFilm.Store.FK_FilmGenre_Film">
+      <End Role="Film" EntitySet="film" />
+      <End Role="FilmGenre" EntitySet="FilmGenre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FilmGenre_Genre" Association="EFProjetFilm.Store.FK_FilmGenre_Genre">
+      <End Role="Genre" EntitySet="genre" />
+      <End Role="FilmGenre" EntitySet="FilmGenre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FilmPays_Film" Association="EFProjetFilm.Store.FK_FilmPays_Film">
+      <End Role="Film" EntitySet="film" />
+      <End Role="FilmPays" EntitySet="FilmPays" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FilmPays_Pays" Association="EFProjetFilm.Store.FK_FilmPays_Pays">
+      <End Role="Pays" EntitySet="pays" />
+      <End Role="FilmPays" EntitySet="FilmPays" />
+    </AssociationSet>
+    <AssociationSet Name="PaysDrapeau" Association="EFProjetFilm.Store.PaysDrapeau">
+      <End Role="Pays" EntitySet="pays" />
+      <End Role="Drapeau" EntitySet="drapeau" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="film">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Titre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Synopsis" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Annee" Type="int" Nullable="false" />
+    <Property Name="Affiche" Type="nvarchar(max)" Nullable="false" DefaultValue="D:\images\Informatique\Cinema\avatar.jpg" />
+  </EntityType>
+  <EntityType Name="pays">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="genre">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="drapeau">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CheminImage" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Pays_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="FilmGenre">
+    <Key>
+      <PropertyRef Name="Film_Id" />
+      <PropertyRef Name="Genre_Id" />
+    </Key>
+    <Property Name="Film_Id" Type="int" Nullable="false" />
+    <Property Name="Genre_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FilmPays">
+    <Key>
+      <PropertyRef Name="Film_Id" />
+      <PropertyRef Name="Pays_Id" />
+    </Key>
+    <Property Name="Film_Id" Type="int" Nullable="false" />
+    <Property Name="Pays_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="PaysDrapeau">
+    <End Role="Pays" Type="EFProjetFilm.Store.pays" Multiplicity="0..1" />
+    <End Role="Drapeau" Type="EFProjetFilm.Store.drapeau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pays">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Drapeau">
+        <PropertyRef Name="Pays_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilmGenre_Film">
+    <End Role="Film" Type="EFProjetFilm.Store.film" Multiplicity="1" />
+    <End Role="FilmGenre" Type="EFProjetFilm.Store.FilmGenre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Film">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilmGenre">
+        <PropertyRef Name="Film_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilmGenre_Genre">
+    <End Role="FilmGenre" Type="EFProjetFilm.Store.FilmGenre" Multiplicity="*" />
+    <End Role="Genre" Type="EFProjetFilm.Store.genre" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilmGenre">
+        <PropertyRef Name="Genre_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilmPays_Film">
+    <End Role="Film" Type="EFProjetFilm.Store.film" Multiplicity="1" />
+    <End Role="FilmPays" Type="EFProjetFilm.Store.FilmPays" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Film">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilmPays">
+        <PropertyRef Name="Film_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilmPays_Pays">
+    <End Role="FilmPays" Type="EFProjetFilm.Store.FilmPays" Multiplicity="*" />
+    <End Role="Pays" Type="EFProjetFilm.Store.pays" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Pays">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilmPays">
+        <PropertyRef Name="Pays_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

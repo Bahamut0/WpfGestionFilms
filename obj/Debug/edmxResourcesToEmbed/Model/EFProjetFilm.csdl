@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EFProjetFilm" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="EFProjetFilmContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="film" EntityType="EFProjetFilm.Film" />
+    <EntitySet Name="pays" EntityType="EFProjetFilm.Pays" />
+    <EntitySet Name="genre" EntityType="EFProjetFilm.Genre" />
+    <EntitySet Name="drapeau" EntityType="EFProjetFilm.Drapeau" />
+    <AssociationSet Name="FilmGenre" Association="EFProjetFilm.FilmGenre">
+      <End Role="Film" EntitySet="film" />
+      <End Role="Genre" EntitySet="genre" />
+    </AssociationSet>
+    <AssociationSet Name="FilmPays" Association="EFProjetFilm.FilmPays">
+      <End Role="Film" EntitySet="film" />
+      <End Role="Pays" EntitySet="pays" />
+    </AssociationSet>
+    <AssociationSet Name="PaysDrapeau" Association="EFProjetFilm.PaysDrapeau">
+      <End EntitySet="pays" Role="Pays" />
+      <End EntitySet="drapeau" Role="Drapeau" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Film">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Titre" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Synopsis" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Annee" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Genre" Relationship="EFProjetFilm.FilmGenre" FromRole="Film" ToRole="Genre" />
+    <NavigationProperty Name="Pays" Relationship="EFProjetFilm.FilmPays" FromRole="Film" ToRole="Pays" />
+    <Property Name="Affiche" Type="String" Nullable="false" DefaultValue="D:\images\Informatique\Cinema\avatar.jpg" />
+  </EntityType>
+  <EntityType Name="Pays">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Film" Relationship="EFProjetFilm.FilmPays" FromRole="Pays" ToRole="Film" />
+    <NavigationProperty Name="Drapeau" Relationship="EFProjetFilm.PaysDrapeau" FromRole="Pays" ToRole="Drapeau" />
+  </EntityType>
+  <EntityType Name="Genre">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Film" Relationship="EFProjetFilm.FilmGenre" FromRole="Genre" ToRole="Film" />
+  </EntityType>
+  <EntityType Name="Drapeau">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+    <Property Name="CheminImage" Nullable="true" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+    <NavigationProperty Name="Pays" Relationship="EFProjetFilm.PaysDrapeau" FromRole="Drapeau" ToRole="Pays" />
+  </EntityType>
+  <Association Name="FilmGenre">
+    <End Type="EFProjetFilm.Film" Role="Film" Multiplicity="*" />
+    <End Type="EFProjetFilm.Genre" Role="Genre" Multiplicity="*" />
+  </Association>
+  <Association Name="FilmPays">
+    <End Type="EFProjetFilm.Film" Role="Film" Multiplicity="*" />
+    <End Type="EFProjetFilm.Pays" Role="Pays" Multiplicity="*" />
+  </Association>
+  <Association Name="PaysDrapeau">
+    <End Type="EFProjetFilm.Pays" Multiplicity="0..1" Role="Pays" />
+    <End Type="EFProjetFilm.Drapeau" Multiplicity="0..1" Role="Drapeau" />
+  </Association>
+</Schema>

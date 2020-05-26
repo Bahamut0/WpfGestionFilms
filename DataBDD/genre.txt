@@ -1,0 +1,16 @@
+1|Voyages	
+2|Comédie dramatique	
+3|Comédie policiŠre	
+4|Comédie romantique	
+5|Parodie	
+6|Screwball comedy	
+7|Conte	
+8|Documentaire	
+9|Docufiction	
+10|Ethnofiction	
+11|Drame	
+12|M‚lodrame	
+13|Film fantastique	
+14|Vampirisme	
+15|Film de zombie	
+16|Film de guerre

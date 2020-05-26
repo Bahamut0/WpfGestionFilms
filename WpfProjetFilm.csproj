@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7D829652-1E47-4597-83C6-1B6D2E5F4353}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WpfProjetFilm</RootNamespace>
+    <AssemblyName>WpfProjetFilm</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="ViewModel\VMProjetFilm.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Drapeau.cs">
+      <DependentUpon>EFProjetFilm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EFProjetFilm.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFProjetFilm.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EFProjetFilm.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFProjetFilm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EFProjetFilm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFProjetFilm.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Film.cs">
+      <DependentUpon>EFProjetFilm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Genre.cs">
+      <DependentUpon>EFProjetFilm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Pays.cs">
+      <DependentUpon>EFProjetFilm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EntityDeploy Include="Model\EFProjetFilm.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EFProjetFilm.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Image\Drapeaux\pays.dat" />
+    <None Include="Model\EFProjetFilm.edmx.diagram">
+      <DependentUpon>EFProjetFilm.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DataBDD\drapeau.txt" />
+    <Resource Include="DataBDD\filmGenre.txt" />
+    <Resource Include="DataBDD\filmPays.txt" />
+    <Resource Include="DataBDD\films.txt" />
+    <Resource Include="DataBDD\genre.txt" />
+    <Resource Include="DataBDD\pays.txt" />
+    <Content Include="Image\avatar.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Image\Films\02.jpg" />
+    <Resource Include="Image\Films\1.jpg" />
+    <Resource Include="Image\Films\1.png" />
+    <Resource Include="Image\Films\10.jpg" />
+    <Resource Include="Image\Films\10.png" />
+    <Resource Include="Image\Films\11.jpg" />
+    <Resource Include="Image\Films\11.png" />
+    <Resource Include="Image\Films\12.jpg" />
+    <Resource Include="Image\Films\13.jpg" />
+    <Resource Include="Image\Films\14.jpg" />
+    <Resource Include="Image\Films\15.jpg" />
+    <Resource Include="Image\Films\16.jpg" />
+    <Resource Include="Image\Films\17.jpg" />
+    <Resource Include="Image\Films\18.jpg" />
+    <Resource Include="Image\Films\19.jpg" />
+    <Resource Include="Image\Films\2.png" />
+    <Resource Include="Image\Films\20.jpg" />
+    <Resource Include="Image\Films\3.jpg" />
+    <Resource Include="Image\Films\3.png" />
+    <Resource Include="Image\Films\4.jpg" />
+    <Resource Include="Image\Films\4.png" />
+    <Resource Include="Image\Films\5.jpg" />
+    <Resource Include="Image\Films\5.png" />
+    <Resource Include="Image\Films\6.jpg" />
+    <Resource Include="Image\Films\6.png" />
+    <Resource Include="Image\Films\7.jpg" />
+    <Resource Include="Image\Films\7.png" />
+    <Resource Include="Image\Films\8.jpg" />
+    <Resource Include="Image\Films\8.png" />
+    <Resource Include="Image\Films\9.jpg" />
+    <Resource Include="Image\Films\9.png" />
+    <Resource Include="Image\Drapeaux\Albanais.bmp" />
+    <Resource Include="Image\Drapeaux\Algérien.bmp" />
+    <Resource Include="Image\Drapeaux\Allemand.bmp" />
+    <Resource Include="Image\Drapeaux\Américain.bmp" />
+    <Resource Include="Image\Drapeaux\Argentin.bmp" />
+    <Resource Include="Image\Drapeaux\Arménien.bmp" />
+    <Resource Include="Image\Drapeaux\Australien.bmp" />
+    <Resource Include="Image\Drapeaux\Autrichien.bmp" />
+    <Resource Include="Image\Drapeaux\Bangladais.bmp" />
+    <Resource Include="Image\Drapeaux\Belge.bmp" />
+    <Resource Include="Image\Drapeaux\Bosniaque.bmp" />
+    <Resource Include="Image\Drapeaux\Botswanais.bmp" />
+    <Resource Include="Image\Drapeaux\Bouthan.bmp" />
+    <Resource Include="Image\Drapeaux\Britannique.bmp" />
+    <Resource Include="Image\Drapeaux\Brésilien.bmp" />
+    <Resource Include="Image\Drapeaux\Bulgare.bmp" />
+    <Resource Include="Image\Drapeaux\Burkinabè.bmp" />
+    <Resource Include="Image\Drapeaux\Bénin.bmp" />
+    <Resource Include="Image\Drapeaux\Cambodgien.bmp" />
+    <Resource Include="Image\Drapeaux\Camerounais.bmp" />
+    <Resource Include="Image\Drapeaux\Canadien.bmp" />
+    <Resource Include="Image\Drapeaux\Chilien.bmp" />
+    <Resource Include="Image\Drapeaux\Chinois.bmp" />
+    <Resource Include="Image\Drapeaux\Colombien.bmp" />
+    <Resource Include="Image\Drapeaux\Cubain.bmp" />
+    <Resource Include="Image\Drapeaux\Danois.bmp" />
+    <Resource Include="Image\Drapeaux\Ecossais.bmp" />
+    <Resource Include="Image\Drapeaux\Egyptien.bmp" />
+    <Resource Include="Image\Drapeaux\Espagnol.bmp" />
+    <Resource Include="Image\Drapeaux\Estonien.bmp" />
+    <Resource Include="Image\Drapeaux\Européen.bmp" />
+    <Resource Include="Image\Drapeaux\Finlandais.bmp" />
+    <Resource Include="Image\Drapeaux\Français.bmp" />
+    <Resource Include="Image\Drapeaux\Gabonais.bmp" />
+    <Resource Include="Image\Drapeaux\Grec.bmp" />
+    <Resource Include="Image\Drapeaux\Guinéen.bmp" />
+    <Resource Include="Image\Drapeaux\Géorgien.bmp" />
+    <Resource Include="Image\Drapeaux\Haïtien.bmp" />
+    <Resource Include="Image\Drapeaux\Hollandais.bmp" />
+    <Resource Include="Image\Drapeaux\Hong-Kongais.bmp" />
+    <Resource Include="Image\Drapeaux\Hongrois.bmp" />
+    <Resource Include="Image\Drapeaux\Indien.bmp" />
+    <Resource Include="Image\Drapeaux\Irakien.bmp" />
+    <Resource Include="Image\Drapeaux\Iranien.bmp" />
+    <Resource Include="Image\Drapeaux\Irlandais.bmp" />
+    <Resource Include="Image\Drapeaux\Islandais.bmp" />
+    <Resource Include="Image\Drapeaux\Israélien.bmp" />
+    <Resource Include="Image\Drapeaux\Italien.bmp" />
+    <Resource Include="Image\Drapeaux\Ivoirien.bmp" />
+    <Resource Include="Image\Drapeaux\Jamaïcain.bmp" />
+    <Resource Include="Image\Drapeaux\Japonais.bmp" />
+    <Resource Include="Image\Drapeaux\Kazakh.bmp" />
+    <Resource Include="Image\Drapeaux\Kirghizstanais.bmp" />
+    <Resource Include="Image\Drapeaux\Kurde.bmp" />
+    <Resource Include="Image\Drapeaux\Lettonien.bmp" />
+    <Resource Include="Image\Drapeaux\Libanais.bmp" />
+    <Resource Include="Image\Drapeaux\Liechtenstein.bmp" />
+    <Resource Include="Image\Drapeaux\Lituanien.bmp" />
+    <Resource Include="Image\Drapeaux\Luxembourgeois.bmp" />
+    <Resource Include="Image\Drapeaux\Macédonien.bmp" />
+    <Resource Include="Image\Drapeaux\Malien.bmp" />
+    <Resource Include="Image\Drapeaux\Maltais.bmp" />
+    <Resource Include="Image\Drapeaux\Marocain.bmp" />
+    <Resource Include="Image\Drapeaux\Mauritanien.bmp" />
+    <Resource Include="Image\Drapeaux\Mexicain.bmp" />
+    <Resource Include="Image\Drapeaux\Nord Coréen.bmp" />
+    <Resource Include="Image\Drapeaux\Norvégien.bmp" />
+    <Resource Include="Image\Drapeaux\Néo-Zélandais.bmp" />
+    <Resource Include="Image\Drapeaux\Palestinien.bmp" />
+    <Resource Include="Image\Drapeaux\Philippin.bmp" />
+    <Resource Include="Image\Drapeaux\Polonais.bmp" />
+    <Resource Include="Image\Drapeaux\Portugais.bmp" />
+    <Resource Include="Image\Drapeaux\Péruvien.bmp" />
+    <Resource Include="Image\Drapeaux\Roumain.bmp" />
+    <Resource Include="Image\Drapeaux\Russe.bmp" />
+    <Resource Include="Image\Drapeaux\Serbo-Croate.bmp" />
+    <Resource Include="Image\Drapeaux\Singapourien.bmp" />
+    <Resource Include="Image\Drapeaux\Slovaque.bmp" />
+    <Resource Include="Image\Drapeaux\Soviétique.bmp" />
+    <Resource Include="Image\Drapeaux\Sri-Lankais.bmp" />
+    <Resource Include="Image\Drapeaux\Sud Coréen.bmp" />
+    <Resource Include="Image\Drapeaux\Sud-Africain.bmp" />
+    <Resource Include="Image\Drapeaux\Suisse.bmp" />
+    <Resource Include="Image\Drapeaux\Suédois.bmp" />
+    <Resource Include="Image\Drapeaux\Sénégalais.bmp" />
+    <Resource Include="Image\Drapeaux\Tadjik.bmp" />
+    <Resource Include="Image\Drapeaux\Taïwanais.bmp" />
+    <Resource Include="Image\Drapeaux\Tchadien.bmp" />
+    <Resource Include="Image\Drapeaux\Tchèque.bmp" />
+    <Resource Include="Image\Drapeaux\Thaïlandais.bmp" />
+    <Resource Include="Image\Drapeaux\Tunisien.bmp" />
+    <Resource Include="Image\Drapeaux\Turc.bmp" />
+    <Resource Include="Image\Drapeaux\Ukrainien.bmp" />
+    <Resource Include="Image\Drapeaux\Uruguayen.bmp" />
+    <Resource Include="Image\Drapeaux\Vietnamien.bmp" />
+    <Resource Include="Image\Drapeaux\Vénézuélien.bmp" />
+    <Resource Include="Image\Drapeaux\Yougoslave.bmp" />
+    <Content Include="Image\greyLight.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Model\EFProjetFilm.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EFProjetFilm.Context.cs</LastGenOutput>
+      <DependentUpon>EFProjetFilm.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\EFProjetFilm.edmx.sql" />
+    <Content Include="Model\EFProjetFilm.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EFProjetFilm.cs</LastGenOutput>
+      <DependentUpon>EFProjetFilm.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

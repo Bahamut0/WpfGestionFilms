@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EFProjetFilm.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="EFProjetFilmStoreContainer">
+    <EntitySet Name="film" EntityType="EFProjetFilm.Store.film" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="pays" EntityType="EFProjetFilm.Store.pays" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="genre" EntityType="EFProjetFilm.Store.genre" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="drapeau" EntityType="EFProjetFilm.Store.drapeau" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FilmGenre" EntityType="EFProjetFilm.Store.FilmGenre" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FilmPays" EntityType="EFProjetFilm.Store.FilmPays" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_FilmGenre_Film" Association="EFProjetFilm.Store.FK_FilmGenre_Film">
+      <End Role="Film" EntitySet="film" />
+      <End Role="FilmGenre" EntitySet="FilmGenre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FilmGenre_Genre" Association="EFProjetFilm.Store.FK_FilmGenre_Genre">
+      <End Role="Genre" EntitySet="genre" />
+      <End Role="FilmGenre" EntitySet="FilmGenre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FilmPays_Film" Association="EFProjetFilm.Store.FK_FilmPays_Film">
+      <End Role="Film" EntitySet="film" />
+      <End Role="FilmPays" EntitySet="FilmPays" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FilmPays_Pays" Association="EFProjetFilm.Store.FK_FilmPays_Pays">
+      <End Role="Pays" EntitySet="pays" />
+      <End Role="FilmPays" EntitySet="FilmPays" />
+    </AssociationSet>
+    <AssociationSet Name="PaysDrapeau" Association="EFProjetFilm.Store.PaysDrapeau">
+      <End Role="Pays" EntitySet="pays" />
+      <End Role="Drapeau" EntitySet="drapeau" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="film">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Titre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Synopsis" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Annee" Type="int" Nullable="false" />
+    <Property Name="Affiche" Type="nvarchar(max)" Nullable="false" DefaultValue="D:\images\Informatique\Cinema\avatar.jpg" />
+  </EntityType>
+  <EntityType Name="pays">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="genre">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="drapeau">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CheminImage" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Pays_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="FilmGenre">
+    <Key>
+      <PropertyRef Name="Film_Id" />
+      <PropertyRef Name="Genre_Id" />
+    </Key>
+    <Property Name="Film_Id" Type="int" Nullable="false" />
+    <Property Name="Genre_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FilmPays">
+    <Key>
+      <PropertyRef Name="Film_Id" />
+      <PropertyRef Name="Pays_Id" />
+    </Key>
+    <Property Name="Film_Id" Type="int" Nullable="false" />
+    <Property Name="Pays_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="PaysDrapeau">
+    <End Role="Pays" Type="EFProjetFilm.Store.pays" Multiplicity="0..1" />
+    <End Role="Drapeau" Type="EFProjetFilm.Store.drapeau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pays">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Drapeau">
+        <PropertyRef Name="Pays_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilmGenre_Film">
+    <End Role="Film" Type="EFProjetFilm.Store.film" Multiplicity="1" />
+    <End Role="FilmGenre" Type="EFProjetFilm.Store.FilmGenre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Film">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilmGenre">
+        <PropertyRef Name="Film_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilmGenre_Genre">
+    <End Role="FilmGenre" Type="EFProjetFilm.Store.FilmGenre" Multiplicity="*" />
+    <End Role="Genre" Type="EFProjetFilm.Store.genre" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilmGenre">
+        <PropertyRef Name="Genre_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilmPays_Film">
+    <End Role="Film" Type="EFProjetFilm.Store.film" Multiplicity="1" />
+    <End Role="FilmPays" Type="EFProjetFilm.Store.FilmPays" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Film">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilmPays">
+        <PropertyRef Name="Film_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilmPays_Pays">
+    <End Role="FilmPays" Type="EFProjetFilm.Store.FilmPays" Multiplicity="*" />
+    <End Role="Pays" Type="EFProjetFilm.Store.pays" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Pays">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilmPays">
+        <PropertyRef Name="Pays_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EFProjetFilm" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="EFProjetFilmContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="film" EntityType="EFProjetFilm.Film" />
+          <EntitySet Name="pays" EntityType="EFProjetFilm.Pays" />
+          <EntitySet Name="genre" EntityType="EFProjetFilm.Genre" />
+          <EntitySet Name="drapeau" EntityType="EFProjetFilm.Drapeau" />
+          <AssociationSet Name="FilmGenre" Association="EFProjetFilm.FilmGenre">
+            <End Role="Film" EntitySet="film" />
+            <End Role="Genre" EntitySet="genre" />
+          </AssociationSet>
+          <AssociationSet Name="FilmPays" Association="EFProjetFilm.FilmPays">
+            <End Role="Film" EntitySet="film" />
+            <End Role="Pays" EntitySet="pays" />
+          </AssociationSet>
+          <AssociationSet Name="PaysDrapeau" Association="EFProjetFilm.PaysDrapeau">
+            <End EntitySet="pays" Role="Pays" />
+            <End EntitySet="drapeau" Role="Drapeau" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titre" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Synopsis" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Annee" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Genre" Relationship="EFProjetFilm.FilmGenre" FromRole="Film" ToRole="Genre" />
+          <NavigationProperty Name="Pays" Relationship="EFProjetFilm.FilmPays" FromRole="Film" ToRole="Pays" />
+          <Property Name="Affiche" Type="String" Nullable="false" DefaultValue="D:\images\Informatique\Cinema\avatar.jpg" />
+        </EntityType>
+        <EntityType Name="Pays">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Film" Relationship="EFProjetFilm.FilmPays" FromRole="Pays" ToRole="Film" />
+          <NavigationProperty Name="Drapeau" Relationship="EFProjetFilm.PaysDrapeau" FromRole="Pays" ToRole="Drapeau" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Film" Relationship="EFProjetFilm.FilmGenre" FromRole="Genre" ToRole="Film" />
+        </EntityType>
+        <EntityType Name="Drapeau">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="CheminImage" Nullable="true" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <NavigationProperty Name="Pays" Relationship="EFProjetFilm.PaysDrapeau" FromRole="Drapeau" ToRole="Pays" />
+        </EntityType>
+        <Association Name="FilmGenre">
+          <End Type="EFProjetFilm.Film" Role="Film" Multiplicity="*" />
+          <End Type="EFProjetFilm.Genre" Role="Genre" Multiplicity="*" />
+        </Association>
+        <Association Name="FilmPays">
+          <End Type="EFProjetFilm.Film" Role="Film" Multiplicity="*" />
+          <End Type="EFProjetFilm.Pays" Role="Pays" Multiplicity="*" />
+        </Association>
+        <Association Name="PaysDrapeau">
+          <End Type="EFProjetFilm.Pays" Multiplicity="0..1" Role="Pays" />
+          <End Type="EFProjetFilm.Drapeau" Multiplicity="0..1" Role="Drapeau" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EFProjetFilmStoreContainer" CdmEntityContainer="EFProjetFilmContainer">
+    <EntitySetMapping Name="film">
+      <EntityTypeMapping TypeName="IsTypeOf(EFProjetFilm.Film)">
+        <MappingFragment StoreEntitySet="film">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Titre" ColumnName="Titre" />
+          <ScalarProperty Name="Synopsis" ColumnName="Synopsis" />
+          <ScalarProperty Name="Annee" ColumnName="Annee" />
+          <ScalarProperty Name="Affiche" ColumnName="Affiche" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pays">
+      <EntityTypeMapping TypeName="IsTypeOf(EFProjetFilm.Pays)">
+        <MappingFragment StoreEntitySet="pays">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="genre">
+      <EntityTypeMapping TypeName="IsTypeOf(EFProjetFilm.Genre)">
+        <MappingFragment StoreEntitySet="genre">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="drapeau">
+      <EntityTypeMapping TypeName="IsTypeOf(EFProjetFilm.Drapeau)">
+        <MappingFragment StoreEntitySet="drapeau">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CheminImage" ColumnName="CheminImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FilmGenre" TypeName="EFProjetFilm.FilmGenre" StoreEntitySet="FilmGenre">
+      <EndProperty Name="Film">
+        <ScalarProperty Name="Id" ColumnName="Film_Id" />
+      </EndProperty>
+      <EndProperty Name="Genre">
+        <ScalarProperty Name="Id" ColumnName="Genre_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FilmPays" TypeName="EFProjetFilm.FilmPays" StoreEntitySet="FilmPays">
+      <EndProperty Name="Film">
+        <ScalarProperty Name="Id" ColumnName="Film_Id" />
+      </EndProperty>
+      <EndProperty Name="Pays">
+        <ScalarProperty Name="Id" ColumnName="Pays_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PaysDrapeau" TypeName="EFProjetFilm.PaysDrapeau" StoreEntitySet="drapeau">
+      <EndProperty Name="Pays">
+        <ScalarProperty Name="Id" ColumnName="Pays_Id" />
+      </EndProperty>
+      <EndProperty Name="Drapeau">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Pays_Id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
